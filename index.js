@@ -14,6 +14,7 @@ module.exports = function selenium(op, cb) {
                     , log      : './selenium.log'             // a place to log what selenium is doing (filepath || stream)
                     , debugJava: false}                       // you want to see what options spawn('java') is getting?
                   , op)
+  // download all files and then start the process
   async.each(_op.drivers.concat([_op.selenium])
                 , download
                 , function(e) {
@@ -83,8 +84,8 @@ var remoteLibs = {
   * The engine that will start the java selenium server
   */
 function run(op, cb) {
-  // no port? get one
   if (!op.port) {
+    // no port? get one
     freeport(_run)
   } else {
     // run on the port give.  if it is taken, there will be an error....
@@ -95,20 +96,26 @@ function run(op, cb) {
   function _run(e, port) {
     if (e) throw e
 
+    // base arguments
     var javaArgs = ['-jar', op.selenium.file, '-port', port]
+    // add optional arguments
     if (op.java) {
       javaArgs = javaArgs.concat(op.java)
     }
+    // add driver arguments
     if (op.drivers) {
       javaArgs = javaArgs.concat(op.drivers.map(function(i) {
         return '-Dwebdriver.'+i.name+'.driver='+i.file
       }))
     }
+    // let people know we are starting
     console.log('Starting Selenium on port: ' + port)
     if (op.debugJava) {
+      // if you want to know everything...
       console.log('Starting java with args', javaArgs)
     }
 
+    // start the process
     var child = spawn('java', javaArgs)
     // set some values on our return object
     child.host = '127.0.0.1'
@@ -125,20 +132,22 @@ function run(op, cb) {
       child.stderr.pipe(_log)
     }
 
-    // Pipe stderr over so that bad things are clear to the user
-    child.stderr.pipe(process.stderr)
-
     // make sure we start up, just because the process is
     // started, does not mean the server is ready...
     // this is a quick and simple check
     child.stdout.on('data', function checkData(data) {
       var sentinal = 'Started org.openqa.jetty.jetty.Server'
       if (data.toString().indexOf(sentinal) != -1) {
+        // everything is good, remove our listener becuase
+        // we don't need them anymore
         child.stdout.removeListener('data', checkData)
+        child.removeListener('exit', badExit)
         // everything is good, send the process back with love
         cb(null, child)
       }
     })
+    child.on('exit', badExit)
+    function badExit() {cb(new Error('Error starting Selenium'))}
   }
 }
 
@@ -152,7 +161,7 @@ function download(op, cb) {
 
   // stat the file to make sure it's there...
   fs.stat(op.file, function(er, stat) {
-    if (er) return real()
+    if (er) return _download(cb)
     // if we have a sha for the file, let's check it
     if (op.sha) {
       hashFile(op.file, 'sha1', function(er, sha) {
@@ -176,9 +185,6 @@ function download(op, cb) {
     request({ url: op.url })
       .on('response', function(res) {
         res
-          .on('data', function(chunk) {
-            bar.tick(chunk.length)
-          })
           .on('end', function() {
             cb() // deal with zip stream?
           })
@@ -187,7 +193,7 @@ function download(op, cb) {
           res
             .pipe(unzip.Parse())
             .on('entry', function(file) {
-              file.pipe(fs.createWriteStream(op.file))
+              file.pipe(fs.createWriteStream(op.file, {mode: 0777}))
             })
         } else {
           res.pipe(fs.createWriteStream(op.file))

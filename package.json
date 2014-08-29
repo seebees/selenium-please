@@ -1,13 +1,13 @@
 {
-  "name": "selenium-process",
+  "name": "selenium-please",
   "description": "A library to download and launch the Selenium Server.",
   "version": "0.1.0",
-  "homepage": "https://github.com/seebees/selenium-process",
+  "homepage": "https://github.com/seebees/selenium-please",
   "author": "seebees@gmail.com",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/seebees/selenium-process"
+    "url": "https://github.com/seebees/selenium-please"
   },
   "scripts": {
     "test": "mocha --timeout 150000 --slow 5000"
