@@ -1,0 +1,30 @@
+{
+  "name": "selenium-process",
+  "description": "A library to download and launch the Selenium Server.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/seebees/selenium-process",
+  "author": "seebees@gmail.com",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seebees/selenium-process"
+  },
+  "scripts": {
+    "test": "mocha --timeout 150000 --slow 5000"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "freeport": "1.0.x",
+    "hash_file": "0.0.x",
+    "progress": "^1.1.8",
+    "request": "2.9.x",
+    "unzip": "^0.1.9"
+  },
+  "devDependencies": {
+    "mocha": "1.x.x",
+    "soda": "0.2.x"
+  },
+  "engines": {
+    "node": ">= 0.6.x"
+  }
+}
