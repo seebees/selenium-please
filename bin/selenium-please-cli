@@ -1,0 +1,87 @@
+#!/usr/bin/env node
+
+var nopt = require('nopt')
+var knownOpts = { "log"           : [require('path')]
+                , "java"          : [String, Array]
+                , "debugJava"     : Boolean
+                , "port"          : Number
+                , "selenium.file" : String
+                , "selenium.url"  : require('url')
+                , "selenium.sha"  : String}
+var shortHand = {"h": "--help"}
+
+var op = nopt(knownOpts, shortHand)
+
+if (op.help) {
+  console.log('Hopefuly a simple way to get a Selenium server running')
+  console.log()
+  console.log('Usage:')
+  console.log('   --log               Log file for selenium process')
+  console.log('   --java              Additional java options')
+  console.log('   --debugJava         Log all java options')
+  console.log('   --port              Port to run selenium')
+  console.log('   --selenium.file     Optional file name for Selenium jar')
+  console.log('   --selenium.url      Optional URL to download jar from')
+  console.log('   --selenium.sha      Optional sha to verify file')
+  console.log('   --driver.name.file  Optional file name for driver')
+  console.log('   --driver.name.url   Optional URL to download driver from')
+  console.log('   --driver.name.sha   Optional sha to driver verify file')
+  console.log()
+  console.log('Examples:')
+  console.log(' To start Selenium on a specified port')
+  console.log('   selenium-please --port 4444')
+  console.log()
+  console.log(' To use a different version of the chrome driver:')
+  console.log('   selenium-please --driver.chrome.file=my_chrome \\')
+  console.log('     --driver.chrome.url=http://chromedriver.storage.googleapis.com/2.7/chromedriver_mac32.zip')
+  console.log()
+  console.log(' To use a different version of Selenium:')
+  console.log('   selenium-please --selenium.file=selenium-server-standalone-2.41.0.jar \\')
+  console.log('     --selenium.url=http://selenium-release.storage.googleapis.com/2.41/selenium-server-standalone-2.41.0.jar')
+  return
+}
+
+if (!op.log) {
+  op.log = process.stdout
+}
+
+// parse out selenium.* options into a selenium object
+var selenium = Object
+                  .keys(op)
+                  .filter(function(k) {return k.lastIndexOf('selenium.', 0) === 0})
+                  .reduce(function(selenium, k) {
+                    selenium      = selenium || {}
+                                    // i.e. selenium.file, key === file
+                    var key       = k.split('.')[1]
+                    selenium[key] = op[k]
+                    return selenium
+                  }, false)
+
+if (selenium) {
+  op.selenium = selenium
+}
+
+// parse out driver.* options into a drivers array of driver objects
+var drivers = Object
+                .keys(op)
+                .filter(function(k) {return k.lastIndexOf('driver.', 0) === 0
+                                            && k.split('.').length === 3})
+                .sort()
+                .reduce(function(driver, k, i , arr) {
+                  var tmp  = k.split('.')
+                  var name = tmp[1]
+                  var type = tmp[2]
+                  var obj  = driver[driver.length-1] || {}
+                  if (obj.name !== name) {
+                    obj = {name: name}
+                    driver.push(obj)
+                  }
+                  obj[type] = op[k]
+                  return driver
+                }, [])
+
+if (drivers.length) {
+  op.drivers = drivers
+}
+
+require('../index.js')(op)
