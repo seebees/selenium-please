@@ -25,7 +25,7 @@
     "request": "2.9.x",
     "unzip": "^0.1.9",
     "phantomjs": "~1.9.7-15",
-    "nopt": "~3.0.1",
+    "nopt": "~3.0.1"
   },
   "bin": "./bin/selenium-please-cli",
   "engines": {
