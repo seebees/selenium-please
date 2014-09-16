@@ -61,18 +61,21 @@ function run(op, cb) {
     // make sure we start up, just because the process is
     // started, does not mean the server is ready...
     // this is a quick and simple check
-    child.stdout.on('data', function checkData(data) {
+    child.stdout.on('data', checkData)
+    child.stderr.on('data', checkData)
+    child.on('exit', badExit)
+    function badExit() {cb(new Error('Error starting Selenium'))}
+    function checkData(data) {
       var sentinal = 'Started org.openqa.jetty.jetty.Server'
       if (data.toString().indexOf(sentinal) != -1) {
         // everything is good, remove our listener becuase
         // we don't need them anymore
         child.stdout.removeListener('data', checkData)
+        child.stderr.removeListener('data', checkData)
         child.removeListener('exit', badExit)
         // everything is good, send the process back with love
         cb(null, child)
       }
-    })
-    child.on('exit', badExit)
-    function badExit() {cb(new Error('Error starting Selenium'))}
+    }
   }
 }
