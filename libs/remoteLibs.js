@@ -2,43 +2,43 @@
 //https://code.google.com/p/selenium/wiki/SafariDriver
 module.exports = {
         selenium: {
-          url: 'http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar'
-        , file: 'selenium-server-standalone-2.43.1.jar'
-        , sha: 'ef1b5f8ae9c99332f99ba8794988a1d5b974d27b'}
+          url: 'http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar'
+        , file: 'selenium-server-standalone-2.45.0.jar'
+        , sha: '9bc872d1f364a3104257b1f8e055a342228259c3'}
       , platform: {
           linux_x32: [
             { name: 'chrome'
-            , url: 'http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux32.zip'
+            , url: 'http://chromedriver.storage.googleapis.com/2.14/chromedriver_linux32.zip'
             , file: 'chromedriver_linux32'
-            , sha: 'a124ba4a477bf369360c868deaa6e88cebfe4ea1'}
+            , sha: '04f2fa2c1d5d7da0e85ab6157f079338e1389a15'}
           ]
         , linux_x64: [
             { name: 'chrome'
-            , url: 'http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip'
+            , url: 'http://chromedriver.storage.googleapis.com/2.14/chromedriver_linux64.zip'
             , file: 'chromedriver_linux64'
-            , sha: '37ac75d5a81e89ade946c4eb0b3e4c0692c58080'}
+            , sha: 'e8b4c428d03246d18882d3c5309ac58a58ba782b'}
           ]
         , darwin: [
             { name: 'chrome'
-            , url: 'http://chromedriver.storage.googleapis.com/2.10/chromedriver_mac32.zip'
+            , url: 'http://chromedriver.storage.googleapis.com/2.14/chromedriver_mac32.zip'
             , file: 'chromedriver_mac32'
-            , sha: '7f68abbaac01edb8342b5d027833488e708d0fa1'}
+            , sha: '3289e91ceb922fa55e3e90016363bedd3efb9090'}
           ]
         , win32: [
             { name: 'chrome'
-            , url: 'http://chromedriver.storage.googleapis.com/2.10/chromedriver_win32.zip'
+            , url: 'http://chromedriver.storage.googleapis.com/2.14/chromedriver_win32.zip'
             , file: 'chromedriver_win32'
-            , sha: 'da25f16562029df24881724fbac381b51e45d71d'}
+            , sha: '350005c67acf3074faf144e54ff740c78507c0f9'}
           , { name: 'ie'
-            , url: 'http://selenium-release.storage.googleapis.com/2.43/IEDriverServer_Win32_2.43.0.zip'
-            , file: 'IEDriverServer_Win32_2.43.0.exe'
-            , sha: 'e0683671828360b3de15b7b8fde3cfe2b0498540'}
+            , url: 'http://selenium-release.storage.googleapis.com/2.45/IEDriverServer_Win32_2.45.0.zip'
+            , file: 'IEDriverServer_Win32_2.45.0.exe'
+            , sha: '7987e2af5e474954de99b9a1388ad1be0bb6fb6f'}
           ]
         , win64: [
             { name: 'ie'
-            , url: 'http://selenium-release.storage.googleapis.com/2.43/IEDriverServer_x64_2.43.0.zip'
-            , file: 'IEDriverServer_x64_2.43.0.exe'
-            , sha: '2a790031c41ba0daa42436200210cd94458c4879'}]}
+            , url: 'http://selenium-release.storage.googleapis.com/2.45/IEDriverServer_x64_2.45.0.zip'
+            , file: 'IEDriverServer_x64_2.45.0.exe'
+            , sha: '8a229a335a034a53e74117ed67e74d40a2ea3826'}]}
       , listHash: function() {
           // just a way to download everything and output the sha to update versions and such
           // in a simple node REPL
