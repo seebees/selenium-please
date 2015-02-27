@@ -18,7 +18,7 @@ module.exports = {
             , file: 'chromedriver_linux64'
             , sha: '37ac75d5a81e89ade946c4eb0b3e4c0692c58080'}
           ]
-        , darwin_x64: [
+        , darwin: [
             { name: 'chrome'
             , url: 'http://chromedriver.storage.googleapis.com/2.10/chromedriver_mac32.zip'
             , file: 'chromedriver_mac32'
