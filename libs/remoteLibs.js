@@ -3,7 +3,7 @@
 module.exports = {
         selenium: {
           url: 'http://selenium-release.storage.googleapis.com/2.48/selenium-server-standalone-2.48.2.jar'
-        , file: 'selenium-server-standalone-2.45.0.jar'
+        , file: 'selenium-server-standalone-2.48.0.jar'
         , sha: '1faf8c00e4bf608d200e25f38ce627199db52cb1'}
       , platform: {
           linux_x32: [
