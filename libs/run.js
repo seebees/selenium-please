@@ -66,7 +66,7 @@ function run(op, cb) {
     child.on('exit', badExit)
     function badExit() {cb(new Error('Error starting Selenium'))}
     function checkData(data) {
-      var sentinal = 'Started org.openqa.jetty.jetty.Server'
+      var sentinal = 'Selenium Server is up and running'
       if (data.toString().indexOf(sentinal) != -1) {
         // everything is good, remove our listener becuase
         // we don't need them anymore
