@@ -32,7 +32,7 @@ function run(op, cb) {
       javaArgs = javaArgs.concat(op.drivers.map(function(i) {
         return '-Dwebdriver.'+i.name+'.driver='+i.file
       }))
-      javaArgs.push('-DDwebdriver.phantomjs.driver='+__dirname+'/node_modules/.bin/phantomjs')
+      javaArgs.push('-Dphantomjs.binary.path='+require('phantomjs').path)
     }
     // let people know we are starting
     console.log('Starting Selenium on port: ' + port)
