@@ -15,20 +15,12 @@ function download(op, cb) {
 
   // stat the file to make sure it's there...
   fs.stat(op.file, function(er, stat) {
-    if (er) return _download(cb)
-    // if we have a sha for the file, let's check it
-    if (op.sha) {
-      hashFile(op.file, 'sha1', function(er, sha) {
-        if (er) return cb(er)
-        if (sha != op.sha) {
-          return _download(cb)
-        } else {
-          cb()
-        }
+    if (er) return _download(function(_er) {
+        if(_er) return cb(_er)
+        checkSha(op, cb)
       })
-    } else {
-      cb()
-    }
+    // if we have a file let's check it
+    checkSha(op, cb)
   })
 
   /**
@@ -52,5 +44,21 @@ function download(op, cb) {
           res.pipe(fs.createWriteStream(op.file))
         }
       })
+  }
+
+  function checkSha(op, cb) {
+    // if we have a sha for the file, let's check it
+    if (op.sha) {
+      hashFile(op.file, 'sha1', function(er, sha) {
+        if (er) return cb(er)
+        if (sha != op.sha) {
+          cb(new Error('sha1:' + sha + ' does not match expected sha1:' + op.sha))
+        } else {
+          cb()
+        }
+      })
+    } else {
+      cb()
+    }
   }
 }
