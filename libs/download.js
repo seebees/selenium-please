@@ -4,6 +4,7 @@ var fs       = require('fs')
   , request  = require('request')
   , hashFile = require('hash_file')
   , unzip    = require('unzip')
+  , lockFile = require('lockfile')
 
 /**
   * Function to download and check a file
@@ -11,16 +12,34 @@ var fs       = require('fs')
   */
 function download(op, cb) {
   op = op || {}
-  cb = typeof op === 'function' ? op : cb
+  cb = typeof op === 'function' ? op : (cb || function noop(){})
 
   // stat the file to make sure it's there...
   fs.stat(op.file, function(er, stat) {
-    if (er) return _download(function(_er) {
-        if(_er) return cb(_er)
-        checkSha(op, cb)
-      })
+    if (er && !lockFile.checkSync(op.file + '.lock')) {
+      lockFile.lockSync(op.file + '.lock')
+      return _download(function(_er) {
+          lockFile.unlockSync(op.file + '.lock')
+          if(_er) return cb(_er)
+          checkSha(op, cb)
+        })
+    }
     // if we have a file let's check it
-    checkSha(op, cb)
+    var tries = 0;
+    lockFile.check(op.file + '.lock'
+      , {wait: 2000}
+      , function checkLock(e, isLocked) {
+          if(e) return cb(e)
+          if(isLocked) {
+            if (tries < (op.tries || 4)) {
+              lockFile.check(op.file + '.lock', {wait: 2000}, checkLock)
+            } else {
+              cb(new Error('file still locked'))
+            }
+          } else {
+            checkSha(op, cb)
+          }
+      })
   })
 
   /**
@@ -30,18 +49,16 @@ function download(op, cb) {
     console.log('Downloading:' + op.url)
     request({ url: op.url })
       .on('response', function(res) {
-        res
-          .on('end', function() {
-            cb() // deal with zip stream?
-          })
         if (op.url.slice(-3).toLowerCase() === 'zip') {
           res
             .pipe(unzip.Parse())
             .on('entry', function(file) {
               file.pipe(fs.createWriteStream(op.file, {mode: 0777}))
+                .on('finish', cb)
             })
         } else {
-          res.pipe(fs.createWriteStream(op.file))
+          res.pipe(fs.createWriteStream(op.file, {mode: 0777}))
+            .on('finish', cb)
         }
       })
   }

@@ -12,7 +12,7 @@ var remoteLibs = require('./libs/remoteLibs.js')
   */
 module.exports = function selenium(op, cb) {
   op = op || {}
-  cb = typeof op === 'function' ? op : cb
+  cb = typeof op === 'function' ? op : (cb || function noop(){})
   var platform = process.platform
                   + (process.platform === 'linux'
                       ? '_' + process.config.variables.host_arch
