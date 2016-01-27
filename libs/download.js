@@ -17,12 +17,16 @@ function download(op, cb) {
   // stat the file to make sure it's there...
   fs.stat(op.file, function(er, stat) {
     if (er && !lockFile.checkSync(op.file + '.lock')) {
-      lockFile.lockSync(op.file + '.lock')
-      return _download(function(_er) {
-          lockFile.unlockSync(op.file + '.lock')
-          if(_er) return cb(_er)
-          checkSha(op, cb)
-        })
+      try {
+        lockFile.lockSync(op.file + '.lock')
+        return _download(function(_er) {
+            lockFile.unlockSync(op.file + '.lock')
+            if(_er) return cb(_er)
+            checkSha(op, cb)
+          })
+      } catch (ex) {
+        // assuming that the error is EEXIST from lockFile.lockSync
+      }
     }
     // if we have a file let's check it
     var tries = 0;
