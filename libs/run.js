@@ -21,19 +21,23 @@ function run(op, cb) {
   function _run(e, port) {
     if (e) throw e
 
-    // base arguments
-    var javaArgs = ['-jar', op.selenium.file, '-port', port]
-    // add optional arguments
-    if (op.java) {
-      javaArgs = javaArgs.concat(op.java)
-    }
-    // add driver arguments
+    var javaArgs = []
+    // add driver arguments (all -D args need to come before -jar)
+    // https://github.com/SeleniumHQ/selenium/issues/2566
     if (op.drivers) {
       javaArgs = javaArgs.concat(op.drivers.map(function(i) {
         return '-Dwebdriver.'+i.name+'.driver='+i.file
       }))
       javaArgs.push('-Dphantomjs.binary.path='+require('phantomjs').path)
     }
+
+    // base arguments
+    javaArgs = javaArgs.concat(['-jar', op.selenium.file, '-port', port])
+    // add optional arguments
+    if (op.java) {
+      javaArgs = javaArgs.concat(op.java)
+    }
+
     // let people know we are starting
     console.log('Starting Selenium on port: ' + port)
     if (op.debugJava) {

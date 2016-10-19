@@ -60,6 +60,15 @@ function download(op, cb) {
               file.pipe(fs.createWriteStream(op.file, {mode: 0777}))
                 .on('finish', cb)
             })
+        } else if (op.url.slice(-7).toLowerCase() === '.tar.gz') {
+          res
+            .pipe(require('zlib').Unzip())
+            .pipe(require('tar').Parse())
+            .on('entry', function(entry) {
+              entry
+                .pipe(fs.createWriteStream(op.file, {mode: 0777}))
+                .on('finish', cb)
+            })
         } else {
           res.pipe(fs.createWriteStream(op.file, {mode: 0777}))
             .on('finish', cb)
