@@ -28,7 +28,7 @@ function run(op, cb) {
       javaArgs = javaArgs.concat(op.drivers.map(function(i) {
         return '-Dwebdriver.'+i.name+'.driver='+i.file
       }))
-      javaArgs.push('-Dphantomjs.binary.path='+require('phantomjs').path)
+      javaArgs.push('-Dphantomjs.binary.path='+require('phantomjs-prebuilt').path)
     }
 
     // base arguments
