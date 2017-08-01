@@ -4,6 +4,7 @@ var nopt = require('nopt')
 var knownOpts = { "log"           : [require('path')]
                 , "java"          : [String, Array]
                 , "debugJava"     : Boolean
+                , "download"      : Boolean
                 , "port"          : Number
                 , "selenium.file" : String
                 , "selenium.url"  : require('url')
@@ -19,6 +20,7 @@ if (op.help) {
   console.log('   --log               Log file for selenium process')
   console.log('   --java              Additional java options')
   console.log('   --debugJava         Log all java options')
+  console.log('   --download          Download the selenium drivers')
   console.log('   --port              Port to run selenium')
   console.log('   --selenium.file     Optional file name for Selenium jar')
   console.log('   --selenium.url      Optional URL to download jar from')
@@ -84,4 +86,8 @@ if (drivers.length) {
   op.drivers = drivers
 }
 
-require('../index.js')(op)
+if(op.download) {
+  require('../index.js').download(drivers)
+} else {
+  require('../index.js')(op)
+}
