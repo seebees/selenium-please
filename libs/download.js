@@ -31,12 +31,11 @@ function download(op, cb) {
     // if we have a file let's check it
     var tries = 0;
     lockFile.check(op.file + '.lock'
-      , {wait: 2000}
       , function checkLock(e, isLocked) {
           if(e) return cb(e)
           if(isLocked) {
             if (tries < (op.tries || 4)) {
-              lockFile.check(op.file + '.lock', {wait: 2000}, checkLock)
+              setTimeout(() => lockFile.check(op.file + '.lock', checkLock), 200)
             } else {
               cb(new Error('file still locked'))
             }
