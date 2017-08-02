@@ -46,7 +46,7 @@ module.exports.download = function(drivers, cb) {
   var defDrivers = remoteLibs.platform[platform] || []
 
   // download all files and then start the process
-  async.each(defDrivers.concat(drivers)
+  async.each(defDrivers.concat([remoteLibs.selenium], drivers)
               , download
               , function(e) {
                   if (e) return cb(e)
