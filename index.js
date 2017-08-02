@@ -35,3 +35,21 @@ module.exports = function selenium(op, cb) {
                     run(_op, cb)
                   })
 }
+
+module.exports.download = function(drivers, cb) {
+  drivers = drivers || []
+  cb = typeof op === 'function' ? op : (cb || function noop(){})
+  var platform = process.platform
+                  + (process.platform === 'linux'
+                      ? '_' + process.config.variables.host_arch
+                      : '')
+  var defDrivers = remoteLibs.platform[platform] || []
+
+  // download all files and then start the process
+  async.each(defDrivers.concat(drivers)
+              , download
+              , function(e) {
+                  if (e) return cb(e)
+                  cb()
+                })
+}
