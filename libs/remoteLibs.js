@@ -2,63 +2,63 @@
 //https://code.google.com/p/selenium/wiki/SafariDriver
 module.exports = {
         selenium: {
-          url: 'http://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar'
-        , file: 'selenium-server-standalone-3.0.1.jar'
-        , sha: '121fbf5e2ab406fd80e8dd6a51a4e018a397b8f9'}
+          url: 'https://selenium-release.storage.googleapis.com/3.6/selenium-server-standalone-3.6.0.jar'
+        , file: 'selenium-server-standalone-3.6.0.jar'
+        , sha: 'ce8cceed437687767b0673c7064cdb06a796b658'}
       , platform: {
           linux_x32: [
             { name: 'chrome'
-            , url: 'http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux32.zip'
+            , url: 'https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux32.zip'
             , file: 'chromedriver_linux32'
-            , sha: '759099cc6df3ce2fc16e17ff42d112fcb9200ffd'}
+            , sha: '3d0c563b5654cf0ca27736033a9ef4aae6b66960'}
           ,  { name: 'gecko'
-            , url: 'https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux32.tar.gz'
-            , file: 'geckodriver-v0.11.1_linux32'
-            , sha: '269a27304313ac5669f5c3acab5c7a273088892d'}
+            , url: 'https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux32.tar.gz'
+            , file: 'geckodriver-v0.19.0_linux32'
+            , sha: 'a51bdda75cdc3b4f51668623a7d922c77ab13a69'}
           ]
         , linux_x64: [
             { name: 'chrome'
-            , url: 'http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip'
+            , url: 'https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip'
             , file: 'chromedriver_linux64'
-            , sha: 'a6d5985804e63faba52d0a3a26c518f09a10c1b0'}
+            , sha: '1ed49734a8987c5c03dfcac083c33310692b142b'}
           ,  { name: 'gecko'
-            , url: 'https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz'
-            , file: 'geckodriver-v0.11.1_linux64'
-            , sha: 'de46bc91105506c681a7d8c97c0f71583b8446a7'}
+            , url: 'https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz'
+            , file: 'geckodriver-v0.19.0_linux64'
+            , sha: '64decacff2095a1974958f7c15d611d6f064c1f5'}
           ]
         , darwin: [
             { name: 'chrome'
-            , url: 'http://chromedriver.storage.googleapis.com/2.24/chromedriver_mac64.zip'
+            , url: 'https://chromedriver.storage.googleapis.com/2.33/chromedriver_mac64.zip'
             , file: 'chromedriver_mac64.zip'
-            , sha: 'e4888451c75e0fcb889217a25bdf75e90d5c3963'}
+            , sha: '3b3abb2244efb0f243ebe88d7517e25e24fa3ce5'}
           ,  { name: 'gecko'
-            , url: 'https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-macos.tar.gz'
-            , file: 'geckodriver-v0.11.1'
-            , sha: 'bf85ad73eb9e0dc3b33ef8604cf4db4ee34d34b5'}
+            , url: 'https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-macos.tar.gz'
+            , file: 'geckodriver-v0.19.0'
+            , sha: '3788704e86885205b8b58ba9f2c56a75a971e3ac'}
           ]
         , win32: [
             { name: 'chrome'
-            , url: 'http://chromedriver.storage.googleapis.com/2.24/chromedriver_win32.zip'
+            , url: 'https://chromedriver.storage.googleapis.com/2.33/chromedriver_win32.zip'
             , file: 'chromedriver_win32.exe'
-            , sha: '8039b11a8ac3a7a2a9451187d732fe57b1d5eea9'}
+            , sha: 'aeea0c8a00153d87636a5e567c9b7a869637e36c'}
           , { name: 'ie'
-            , url: 'http://selenium-release.storage.googleapis.com/3.0/IEDriverServer_Win32_3.0.0.zip'
+            , url: 'https://selenium-release.storage.googleapis.com/3.0/IEDriverServer_Win32_3.0.0.zip'
             , file: 'IEDriverServer_Win32_3.0.0.exe'
             , sha: 'bb400c8e5efb09c85a6b6f555abb5b66322d8081'}
           ,  { name: 'gecko'
-            , url: 'https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-win32.zip'
-            , file: 'geckodriver-v0.11.1-win32.zip'
-            , sha: '6851c1739d13bb69b49ad62bd62716e32e278edd'}
+            , url: 'https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-win32.zip'
+            , file: 'geckodriver-v0.19.0-win32.zip'
+            , sha: 'b4366f8438f975fbed470e99e3b663a9e4d339b0'}
           ]
         , win64: [
             { name: 'ie'
-            , url: 'http://selenium-release.storage.googleapis.com/3.0/IEDriverServer_x64_3.0.0.zip'
+            , url: 'https://selenium-release.storage.googleapis.com/3.0/IEDriverServer_x64_3.0.0.zip'
             , file: 'IEDriverServer_x64_3.0.0.exe'
             , sha: '296d715f883953d10cab8bd123a48f755a23df11'}
           ,  { name: 'gecko'
-            , url: 'https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-win64.zip'
-            , file: 'geckodriver-v0.11.1-win64.zip'
-            , sha: '3f5e4f5e63330211d4ddbea24144a096008a6a76'}]}
+            , url: 'https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-win64.zip'
+            , file: 'geckodriver-v0.19.0-win64.zip'
+            , sha: '1daadd40fbee83d2634f1c244ae281cbd1035f14'}]}
       , listHash: function() {
           // just a way to download everything and output the sha to update versions and such
           // in a simple node REPL
