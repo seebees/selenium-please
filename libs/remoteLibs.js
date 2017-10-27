@@ -2,9 +2,9 @@
 //https://code.google.com/p/selenium/wiki/SafariDriver
 module.exports = {
         selenium: {
-          url: 'https://selenium-release.storage.googleapis.com/3.6/selenium-server-standalone-3.6.0.jar'
-        , file: 'selenium-server-standalone-3.6.0.jar'
-        , sha: 'ce8cceed437687767b0673c7064cdb06a796b658'}
+          url: 'https://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar'
+        , file: 'selenium-server-standalone-3.5.3.jar'
+        , sha: '34c0359fa269b02c2fd9d523fc00145b9ffb29dd'}
       , platform: {
           linux_x32: [
             { name: 'chrome'
