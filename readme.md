@@ -5,7 +5,7 @@ A library to download and launch the Selenium Server.
 This is clearly a copy of selenium-launcher, so credit where credit is due.
 All the awesome is there, all the bugs are mine.
 
-The idea is to get a Selenium server with browsers already installed.  It is a pain to download and maintain the right versions and options for each of the browers.  So this should just work.  Currently Chrome, Firefox, Internet Explorer, PhantomJS should just work.  Adding additional drivers to to the option hash should make these new browsers available.  Pull Requests to update remoteLibs.js are welcome.
+The idea is to get a Selenium server with browsers already installed.  It is a pain to download and maintain the right versions and options for each of the browers.  So this should just work.  Currently Chrome, Firefox, and Internet Explorer should just work.  Adding additional drivers to to the option hash should make these new browsers available.  Pull Requests to update remoteLibs.js are welcome.
 
 The most basic use case
 ---
